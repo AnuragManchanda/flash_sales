@@ -37,7 +37,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag @deal.image.url %>
+  <%= image_tag @deal.image.url(:thumb) %>
 </p>
 
 <%= link_to 'Edit', edit_deal_path(@deal) %> |

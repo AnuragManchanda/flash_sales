@@ -27,7 +27,7 @@
           <td><%= deal.discounted_price %></td>
           <td><%= deal.quantity %></td>
           <td><%= deal.publish_date %></td>
-          <td><%= deal.attachment %></td>
+          <td><%= image_tag deal.image.url(:thumb) %></td>
           <td><%= link_to 'Show', deal %></td>
           <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
           <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -67,7 +67,7 @@
           <td><%= deal.discounted_price %></td>
           <td><%= deal.quantity %></td>
           <td><%= deal.publish_date %></td>
-          <td><%= deal.image_file %></td>
+          <td><%= image_tag @deal.image.url %></td>
           <td>
           <%if @already_bought%>
             Already Bought
@@ -90,7 +90,7 @@
         <th>Title</th>
         <th>Discount</th>
         <th>Time</th>
-        <th colspan="3"></th>
+        <th>Image</th>
       </tr>
     </thead>
 
@@ -100,6 +100,7 @@
           <td><%= user_deal.deal.title %></td>
           <td><%= user_deal.discount %></td>
           <td><%= user_deal.created_at.strftime("%d-%m-%Y") %></td>
+          <td><%= image_tag @user.image.url(:thumb) %></td>
         </tr>
       <% end %>
     </tbody>
