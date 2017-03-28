@@ -67,7 +67,7 @@
           <td><%= deal.discounted_price %></td>
           <td><%= deal.quantity %></td>
           <td><%= deal.publish_date %></td>
-          <td><%= image_tag @deal.image.url %></td>
+          <td><%= image_tag deal.image.url(:thumb) %></td>
           <td>
           <%if @already_bought%>
             Already Bought
@@ -89,7 +89,7 @@
       <tr>
         <th>Title</th>
         <th>Discount</th>
-        <th>Time</th>
+        <th>Date</th>
         <th>Image</th>
       </tr>
     </thead>
@@ -100,10 +100,9 @@
           <td><%= user_deal.deal.title %></td>
           <td><%= user_deal.discount %></td>
           <td><%= user_deal.created_at.strftime("%d-%m-%Y") %></td>
-          <td><%= image_tag @user.image.url(:thumb) %></td>
+          <td><%= image_tag user_deal.deal.image.url(:thumb) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
 <%end%>
