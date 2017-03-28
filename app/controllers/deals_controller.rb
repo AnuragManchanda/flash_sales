@@ -1,11 +1,38 @@
 class DealsController < ApplicationController
 
-  before_action :set_deal, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_deal, only: [:show, :edit, :update, :destroy, :buy]
 
   # GET /deals
   # GET /deals.json
   def index
-    @deals = Deal.all
+    if current_user.is_admin?
+      @deals = Deal.all
+    else
+      @deal_of_the_day = Deal.where(is_live:true).limit(1)
+      @bought_deals = current_user.user_deals
+      bought_deal_ids = @bought_deals.pluck(:deal_id)
+      if bought_deal_ids.include? @deal_of_the_day.first.id
+        @already_bought = true
+      else
+        @already_bought = false
+      end
+    end
+  end
+
+  def buy
+    discount = current_user.user_deals.count < 5 ? current_user.user_deals.count : 5
+    if current_user.user_deals.create!(deal_id: @deal.id, discount: discount)
+      respond_to do |format|
+        format.html { redirect_to deals_url, notice: 'Deal was Bought.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to deals_url, notice: 'Some Error Occured' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # GET /deals/1
@@ -70,6 +97,6 @@ class DealsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def deal_params
-      params.require(:deal).permit(:title, :is_live, :discription, :price, :discounted_price, :quantity, :publish_date, :attachment)
+      params.require(:deal).permit(:title, :is_live, :discription, :price, :discounted_price, :quantity, :publish_date, :image)
     end
 end

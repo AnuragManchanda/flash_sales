@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :deals
 
+  get "deals/:id/buy", to: "deals#buy"
+
   root to: "deals#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

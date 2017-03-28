@@ -36,8 +36,8 @@
 </p>
 
 <p>
-  <strong>Attachment:</strong>
-  <%= @deal.attachment %>
+  <strong>Image:</strong>
+  <%= image_tag @deal.image.url %>
 </p>
 
 <%= link_to 'Edit', edit_deal_path(@deal) %> |

@@ -1,41 +1,108 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Deals</h1>
+<%if current_user.is_admin?%>
+  <h1>Listing Deals</h1>
 
-<table class='table table-striped table-bordered table-advance table-hover'>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Is live</th>
-      <th>Discription</th>
-      <th>Price</th>
-      <th>Discounted price</th>
-      <th>Quantity</th>
-      <th>Publish date</th>
-      <th>Attachment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @deals.each do |deal| %>
+  <table class='table table-striped table-bordered table-advance table-hover'>
+    <thead>
       <tr>
-        <td><%= deal.title %></td>
-        <td><%= deal.is_live %></td>
-        <td><%= deal.discription %></td>
-        <td><%= deal.price %></td>
-        <td><%= deal.discounted_price %></td>
-        <td><%= deal.quantity %></td>
-        <td><%= deal.publish_date %></td>
-        <td><%= deal.attachment %></td>
-        <td><%= link_to 'Show', deal %></td>
-        <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
-        <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Title</th>
+        <th>Is live</th>
+        <th>Discription</th>
+        <th>Price</th>
+        <th>Discounted price</th>
+        <th>Quantity</th>
+        <th>Publish date</th>
+        <th>Attachment</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @deals.each do |deal| %>
+        <tr>
+          <td><%= deal.title %></td>
+          <td><%= deal.is_live %></td>
+          <td><%= deal.discription %></td>
+          <td><%= deal.price %></td>
+          <td><%= deal.discounted_price %></td>
+          <td><%= deal.quantity %></td>
+          <td><%= deal.publish_date %></td>
+          <td><%= deal.attachment %></td>
+          <td><%= link_to 'Show', deal %></td>
+          <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
+          <td><%= link_to 'Destroy', deal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Deal', new_deal_path %>
+  <br>
+
+  <%= link_to 'New Deal', new_deal_path %>
+<%else%>
+  <h1>Deal of The Day</h1>
+
+  <table class='table table-striped table-bordered table-advance table-hover'>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Is live</th>
+        <th>Discription</th>
+        <th>Price</th>
+        <th>Discounted price</th>
+        <th>Quantity</th>
+        <th>Publish date</th>
+        <th>Attachment</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @deal_of_the_day.each do |deal| %>
+        <tr>
+          <td><%= deal.title %></td>
+          <td><%= deal.is_live %></td>
+          <td><%= deal.discription %></td>
+          <td><%= deal.price %></td>
+          <td><%= deal.discounted_price %></td>
+          <td><%= deal.quantity %></td>
+          <td><%= deal.publish_date %></td>
+          <td><%= deal.image_file %></td>
+          <td>
+          <%if @already_bought%>
+            Already Bought
+          <%else%>
+            <a data-confirm="Are you sure you want to buy?" href="/deals/<%=deal.id%>/buy">Buy</a>
+          <%end%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<hr>
+
+  <h1>Bought Deals</h1>
+
+  <table class='table table-striped table-bordered table-advance table-hover'>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Discount</th>
+        <th>Time</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @bought_deals.each do |user_deal| %>
+        <tr>
+          <td><%= user_deal.deal.title %></td>
+          <td><%= user_deal.discount %></td>
+          <td><%= user_deal.created_at.strftime("%d-%m-%Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<%end%>
