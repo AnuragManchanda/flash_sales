@@ -26,7 +26,7 @@
           <td><%= deal.price %></td>
           <td><%= deal.discounted_price %></td>
           <td><%= deal.quantity %></td>
-          <td><%= deal.publish_date %></td>
+          <td><%= deal.publish_date.to_datetime.strftime("%d-%m-%Y") %></td>
           <td><%= image_tag deal.image.url(:thumb) %></td>
           <td><%= link_to 'Show', deal %></td>
           <td><%= link_to 'Edit', edit_deal_path(deal) %></td>
