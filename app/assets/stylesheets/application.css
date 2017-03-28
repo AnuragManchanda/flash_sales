@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+.rcorners1 {
+    border-radius: 25px;
+    background: #dae2cf;
+    padding: 20px;
+}
+.navbar-brand{
+  padding: 30px 15px !important;
+  font-size: 35px !important;
+  line-height: 0px !important;
+}
+
+.navbar-inverse .navbar-brand{
+  color: #fdfbfb !important;
+}
+.navbar-inverse{
+  background-color: #3a6a90 !important;
+}
+.navbar{
+  font-size: 25px !important;
+}
+.navbar-nav>li>a {
+  line-height: 35px;
+}
+.btn {
+  font-size: 25px !important;
+}
+body {
+  font-size: 20px !important;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #efebeb !important;
+}
