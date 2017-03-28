@@ -12,7 +12,7 @@ class DealsController < ApplicationController
       @deal_of_the_day = Deal.where(is_live:true).limit(1)
       @bought_deals = current_user.user_deals
       bought_deal_ids = @bought_deals.pluck(:deal_id)
-      if bought_deal_ids.include? @deal_of_the_day.first.id
+      if bought_deal_ids.include? @deal_of_the_day.first.try(:id)
         @already_bought = true
       else
         @already_bought = false
