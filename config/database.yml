@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: flash_sales_production
-  username: flash_sales
-  password: <%= ENV['FLASH_SALES_DATABASE_PASSWORD'] %>
+  database: flash_sales_development
+  username: root
+  password: password
